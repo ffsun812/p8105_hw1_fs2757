@@ -5,8 +5,14 @@ date: "2021/9/21"
 output: github_document
 ---
 
-Problem 1
-Create a data frame comprised of:
+```{r setup}
+
+library(tidyverse)
+
+```
+
+##Problem 1
+* Create a data frame comprised of:
   * a random sample of size 10 from a standard Normal distribution
   * a logical vector indicating whether elements of the sample are greater than 0
   * a character vector of length 10

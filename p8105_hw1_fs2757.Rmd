@@ -5,26 +5,24 @@ date: "2021/9/21"
 output: github_document
 ---
 
-```{r setup}
-
+```{r setup, include = FALSE}
 library(tidyverse)
-
 ```
 
-###Problem 1
+#Problem 1
 * Create a data frame comprised of:
   * a random sample of size 10 from a standard Normal distribution
   * a logical vector indicating whether elements of the sample are greater than 0
   * a character vector of length 10
   * a factor vector of length 10, with 3 different factor “levels”
 
-```{r}
+```{r create data frame}
 ##Frame
 set.seed(1)
 
 P1_df = tibble(
   random_sample = rnorm(10),
-  sample_logical = random_sample > 0,
+  sample_logical = c(random_sample > 0),
   character_vector= c("circle","quadrangle","Triangular","rectangle","trapezoid", "square","oval","conical","hexagon","Egg-Shaped"),
   factor_vector= factor(c("S", "S","S","M", "M","M", "L","L","L","L"))
 )
@@ -36,17 +34,37 @@ mean(pull(P1_df, random_sample))
 mean(pull(P1_df, sample_logical))
 mean(pull(P1_df, character_vector))
 mean(pull(P1_df, factor_vector))
-
 ```
-** In this case, I could not get the mean of character_vector and factor_vector since they are not numeric or logical.
+** In this case, I could not get the mean of character_vector and factor_vector since they are not numeric or logical.**
 
 ```{r}
-##By using as.numeric function
+##By using as.numeric function to convert
 as.numeric(pull(P1_df, sample_logical))
 as.numeric(pull(P1_df, character_vector))
 as.numeric(pull(P1_df, factor_vector))
 ```
+** In this case, it can be see that logical and factor could convert variables to numerical variable and the character can not convert to numerical variable.**
 
+```{r}
+##Converting
+as.numeric(as.factor(P1_df$character_vector))
+```
+** In this case, it can be see that the character can be convert to numerical.**
 
+#Problem 2
+* This problem focuses the use of inline R code, plotting, and the behavior of ggplot for variables of different types.
+**install a package containing the penguins dataset.
+```{r}
+library(palmerpenguins)
+```
 
+```{r}
+data("penguins", package = "palmerpenguins")
+?name
+```
 
+*Write a short description of the penguins dataset (not the penguins_raw dataset) using inline R code, including:
+  * the data in this dataset, including names / values of important variables
+  * the size of the dataset (using nrow and ncol)
+  * the mean flipper length
+  

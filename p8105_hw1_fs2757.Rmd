@@ -9,7 +9,7 @@ output: github_document
 library(tidyverse)
 ```
 
-#Problem 1
+### Problem 1
 * Create a data frame comprised of:
   * a random sample of size 10 from a standard Normal distribution
   * a logical vector indicating whether elements of the sample are greater than 0
@@ -17,7 +17,6 @@ library(tidyverse)
   * a factor vector of length 10, with 3 different factor “levels”
 
 ```{r create data frame}
-##Frame
 set.seed(1)
 
 P1_df = tibble(
@@ -29,7 +28,6 @@ P1_df = tibble(
 ```
 
 ```{r}
-##Mean
 mean(pull(P1_df, random_sample))
 mean(pull(P1_df, sample_logical))
 mean(pull(P1_df, character_vector))
@@ -38,7 +36,6 @@ mean(pull(P1_df, factor_vector))
 ** In this case, I could not get the mean of character_vector and factor_vector since they are not numeric or logical.**
 
 ```{r}
-##By using as.numeric function to convert
 as.numeric(pull(P1_df, sample_logical))
 as.numeric(pull(P1_df, character_vector))
 as.numeric(pull(P1_df, factor_vector))
@@ -46,12 +43,11 @@ as.numeric(pull(P1_df, factor_vector))
 ** In this case, it can be see that logical and factor could convert variables to numerical variable and the character can not convert to numerical variable.**
 
 ```{r}
-##Converting
 as.numeric(as.factor(P1_df$character_vector))
 ```
 ** In this case, it can be see that the character can be convert to numerical.**
 
-#Problem 2
+### Problem 2
 * This problem focuses the use of inline R code, plotting, and the behavior of ggplot for variables of different types.
 **install a package containing the penguins dataset.
 ```{r}
@@ -60,11 +56,23 @@ library(palmerpenguins)
 
 ```{r}
 data("penguins", package = "palmerpenguins")
-?name
 ```
 
-*Write a short description of the penguins dataset (not the penguins_raw dataset) using inline R code, including:
+* Write a short description of the penguins dataset (not the penguins_raw dataset) using inline R code, including:
   * the data in this dataset, including names / values of important variables
   * the size of the dataset (using nrow and ncol)
   * the mean flipper length
-  
+
+```{r}
+skimr::skim(penguins)
+names(penguins)
+
+mean(pull(penguins, flipper_length_mm ), na.rm=TRUE)
+ncol(penguins)
+nrow(penguins)
+```
+** In the code `r skimr::skim(penguins) `, it summary some data information about the number of rows and columns, column type frequency and different variable basic information. In the code `r names(penguins) `, it list the name of eight different variables. Also, I could get the size of dataset by using `r ncol(penguins)` and `r nrow(penguins)`. For the mean of the flipper length, I use the code `r mean(pull(penguins, flipper_length_mm ), na.rm=TRUE)` to get the mean and the mean is 200.9152.
+
+```{r}
+ggplot(penguins,aes(x = bill_length_mm, y = flipper_length_mm, color = species))+ geom_point()
+```
